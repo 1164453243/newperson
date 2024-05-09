@@ -3,8 +3,13 @@ import Router from 'vue-router'
 import Home from '../components/HelloWorld.vue'
 import users from '../components/Userlist.vue'
 import userdetil from "@/components/userdetil.vue";
+import pchome from "@/components/pc/home.vue";
+import aa from "@/components/pc/aa.vue";
+import 'ant-design-vue/dist/antd.css';
+import Antd from 'ant-design-vue';
 
 Vue.use(Router)
+Vue.use(Antd)
 
 const router=new Router({
     mode: 'history',
@@ -23,6 +28,16 @@ const router=new Router({
             path: '/home',
             name: 'home',
             component: Home,
+        },
+        {
+            path: '/pc/home',
+            name: 'pchome',
+            component: pchome,
+        },
+        {
+            path: '/pc/aa',
+            name: 'aa',
+            component: aa,
         },
         {
             path: '/detail',
