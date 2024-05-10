@@ -67,7 +67,7 @@
         </div>
       </template>
       <template slot="reason" slot-scope="text, record, index">
-        <div>
+        <div style="width: 200px;">
           <a-textarea v-model="record.reason" v-if="record.editable" @change="handleChange($event, index, 'reason')" />
           <template v-else>
             {{ text }}
@@ -111,13 +111,14 @@
         </span>
           <span v-else>
           <a :disabled="editingKey !== ''" @click="() => edit(record.id)">编辑</a>
+          <a style="margin-left: 10px" :disabled="editingKey !== ''" @click="() => edit(record.id)">提交</a>
         </span>
         </div>
       </template>
       <template slot="approval" slot-scope="text, record" >
         <div style="width: 190px;display: flex">
         <a-button type="primary" @click="approve(record.id)">通过</a-button>
-        <a-button style="margin-left: 10px;" type="danger" @click="reject(record.id)">取消</a-button>
+        <a-button style="margin-left: 10px;" type="danger" @click="reject(record.id)">拒绝</a-button>
         </div>
       </template>
     </a-table>
@@ -152,17 +153,17 @@ export default defineComponent({
   data() {
     return {
       dataSource: [
-        { id: 1, type: '病假', startTime: '2024-05-01', endTime: '2024-05-02', hours: 16, reason: '感冒发烧', status: '待审批', approver1: ["2024-01-03 张三->通过","2024-01-03 李四->通过"] ,editable : true},
-        { id: 2, type: '事假', startTime: '2024-06-01', endTime: '2024-06-02', hours: 8, reason: '家里有急事', status: '已批准', approver1: ["2024-01-03 张三->通过","2024-01-03 李四->拒绝"] }
+        { id: 1, type: '病假', startTime: '2024-05-01 01:15', endTime: '2024-05-02 01:15', hours: 16, reason: '感冒发烧', status: '待审批', approver1: ["张三->通过 2024-01-03 12:12","李四->通过 2024-01-03"] ,editable : true},
+        { id: 2, type: '事假', startTime: '2024-06-01 01:15', endTime: '2024-06-02 01:15', hours: 8, reason: '家里有急事', status: '已批准', approver1: ["张三->通过 2024-01-03 12:12","李四->拒绝 2024-01-03"] }
 
       ],
       editingKey: '',
       columns: [
-        { title: '请假类型', dataIndex: 'type', key: 'type',scopedSlots: { customRender: 'type' }},
+        { title: '类型', dataIndex: 'type', key: 'type',scopedSlots: { customRender: 'type' }},
         { title: '请假开始时间', dataIndex: 'startTime', key: 'startTime' ,scopedSlots: { customRender: 'startTime' }},
         { title: '请假结束时间', dataIndex: 'endTime', key: 'endTime',scopedSlots: { customRender: 'endTime' } },
-        { title: '请假小时数', dataIndex: 'hours', key: 'hours' ,scopedSlots: { customRender: 'hours' }},
-        { title: '原因', dataIndex: 'reason', key: 'reason',scopedSlots: { customRender: 'reason' } },
+        { title: '时长', dataIndex: 'hours', key: 'hours' ,scopedSlots: { customRender: 'hours' }},
+        { title: '理由', dataIndex: 'reason', key: 'reason',scopedSlots: { customRender: 'reason' } },
         { title: '单据状态', dataIndex: 'status', key: 'status' },
         { title: '审批人记录', dataIndex: 'approver1', key: 'approver1' ,scopedSlots:{ customRender: 'approver1' } },
         // { title: '审批人2', dataIndex: 'approver2', key: 'approver2' },
@@ -296,12 +297,12 @@ export default defineComponent({
   padding-left: 10px;
 }
 
-.km_list td{
-   //padding: 10px;
-}
-.km_list th{
-  text-align: left;
-}
+/*.km_list td{*/
+/*   //padding: 10px;*/
+/*}*/
+/*.km_list th{*/
+/*  text-align: left;*/
+/*}*/
 .edit-input {
   border: none;
   outline: none;
